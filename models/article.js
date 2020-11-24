@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { stringify } = require('uuid');
 const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({

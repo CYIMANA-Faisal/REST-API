@@ -1,12 +1,14 @@
 const express = require('express');
+const routes = require('./routes/index')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
-mongoose.connect("mongodb+srv://cyimana:Cyfaisal1998@portfolio.pgjtx.mongodb.net/portfoliodb?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.dbConnection, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 app.use(bodyParser.json());
-app.use('/api',require('./routes/api'));
+app.use('/api',routes);
 
 app.listen(3000, () => {
     console.log("ready to accept requests")
