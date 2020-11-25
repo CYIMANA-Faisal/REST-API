@@ -21,7 +21,7 @@ const {
     deleteArticle
 } = require('../controler/article');
 
-router.post('/', upload.single('imageURL'),postArticle);
+router.post('/',auth, upload.single('imageURL'),postArticle);
 router.get('/', getArticles);
 router.get('/:id', getArticle);
 router.put('/:id',auth, updateArticle);
