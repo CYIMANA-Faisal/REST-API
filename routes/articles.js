@@ -1,5 +1,7 @@
 
 const express = require('express');
+const auth = require('../middlewares/authMiddleware')
+
 const router = express.Router();
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -19,10 +21,10 @@ const {
     deleteArticle
 } = require('../controler/article');
 
-router.post('/', upload.single('imageURL'),postArticle);
+router.post('/',auth, upload.single('imageURL'),postArticle);
 router.get('/', getArticles);
 router.get('/:id', getArticle);
-router.put('/:id', updateArticle);
-router.delete('/:id', deleteArticle);
+router.put('/:id',auth, updateArticle);
+router.delete('/:id',auth, deleteArticle);
 
 module.exports = router;

@@ -1,14 +1,19 @@
 
 const Article = require('../models/article');
+const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
+const fs = require('fs')
+
+
 
 // GetArticles the articles
 const getArticles = async (req, res) => {
     const articles = await Article.find({});
     try{
-        res.send(articles);
+        res.status(200).json(articles);
     }
     catch(err){
-        res.send({error:err.message});
+        res.status(500).json({error:err.message});
     }
 };
 
@@ -16,20 +21,25 @@ const getArticles = async (req, res) => {
 const getArticle = async (req, res) => {
     const article = await Article.findOne({_id:req.params.id});
     try {
-        res.send(article);
+        res.status(200).json(article);
     } catch (err) {
-        res.send({error:err.message});
+        res.status(500).json({error:err.message});
     }
 }
 
 // PostArticle function function
 const postArticle = async function (req, res) {
     try {
-        req.body.imageURL = req.file.path;
-        const article = await Article.create(req.body);
-        res.send(article);
+        cloudinary.uploader.upload(req.file.path, { tags: 'basic_sample' },async function (err, image) {
+            if (err) { console.warn(err); }
+            req.body.imageURL = image.url
+            const article = await Article.create(req.body);
+            fs.unlinkSync(req.file.path)
+            res.status(200).json({message: "Article creatred successfully"});
+        });
+          
     } catch (err) {
-        res.send({error:err.message});
+        res.status(500).json({error:err.message});
     }
 };
 
@@ -38,9 +48,9 @@ const updateArticle = async (req, res) => {
     try {
         await Article.findByIdAndUpdate(req.params.id, req.body)
         await Article.save()
-        res.send('The article was updated successfully')
+        res.status(200).json({message:'The article was updated successfully'})
     } catch (err) {
-        res.send({error:err.message});
+        res.status(500).json({error:err.message});
     }
 };
 
@@ -48,11 +58,10 @@ const updateArticle = async (req, res) => {
 const deleteArticle = async (req, res) => {
     try{
         const article = await Article.findByIdAndDelete(req.params.id)
-        // if (!article) res.status(404).send("No article found");
-        res.send("Article deleted successfully.");
+        res.status(200).json({message:"Article deleted successfully."});
     }
     catch (err) {
-        res.send({error:err.message});
+        res.status(500).json({error:err.message});
     }
 };
 
