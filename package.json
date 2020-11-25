@@ -1,0 +1,31 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "this API serves my portfolio website and it was developed through out the journey in andela it uses technologies like nodejs mongodb and express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CYIMANA-Faisal/REST-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CYIMANA-Faisal/REST-API/issues"
+  },
+  "homepage": "https://github.com/CYIMANA-Faisal/REST-API#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.15",
+    "multer": "^1.4.2",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {}
+}
