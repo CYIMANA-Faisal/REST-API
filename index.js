@@ -13,7 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api',routes);
 
+const PORT = process.env.PORT || 3000
 
-app.listen(3000, () => {
-    console.log("ready to accept requests")
+app.listen(PORT, () => {
+    console.log(`The server is running on PORT ${PORT}`)
 });

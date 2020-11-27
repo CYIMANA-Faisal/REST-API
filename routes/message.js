@@ -7,7 +7,7 @@ const {
     getMessage,
     deleteMessage
 } = require('../controler/message');
-const auth = require('../middlewares/authMiddleware');
+
 
 router.get('/', getMessages);
 router.get('/:id',auth, getMessage)
