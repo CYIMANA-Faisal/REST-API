@@ -8,8 +8,9 @@ const fs = require('fs')
 
 // GetArticles the articles
 const getArticles = async (req, res) => {
-    const articles = await Article.find({});
+    
     try{
+        const articles = await Article.find({});
         res.status(200).json(articles);
     }
     catch(err){
@@ -35,7 +36,7 @@ const postArticle = async function (req, res) {
             req.body.imageURL = image.url
             const article = await Article.create(req.body);
             fs.unlinkSync(req.file.path)
-            res.status(200).json({message: "Article creatred successfully"});
+            res.status(200).json({message: "Article creatred successfully", articleID: article._id });
         });
           
     } catch (err) {
@@ -47,7 +48,6 @@ const postArticle = async function (req, res) {
 const updateArticle = async (req, res) => {
     try {
         await Article.findByIdAndUpdate(req.params.id, req.body)
-        await Article.save()
         res.status(200).json({message:'The article was updated successfully'})
     } catch (err) {
         res.status(500).json({error:err.message});
