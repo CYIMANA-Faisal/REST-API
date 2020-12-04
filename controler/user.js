@@ -8,7 +8,7 @@ const signup = async (req, res) => {
         .exec()
         .then((user) => {
             if (user.length >= 1) {
-                res.status(409).send("User with this email exist")
+                res.status(409).send({message:"User with this email exist"})
             } else {
                 bcrypt.genSalt(10, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
@@ -19,18 +19,15 @@ const signup = async (req, res) => {
                             password: hash
                         }
                         User.create(userData)
-                            .then(() => {
-                                res.status(200).send({message: 'User created'})
+                            .then((user) => {
+                                res.status(200).send({message: 'User created', userID: user._id})
                             })
-                            .catch((err) => {
-                                res.status(409).send({error:err.message})
-                            });
                     });
                 });
             }
         })
         .catch((err) => {
-            res.send({error: err.message})
+            res.status(400).send({error: err.message})
         });
 }
 
@@ -39,9 +36,6 @@ const signin = async (req, res) => {
         .exec()
         .then(user => {
             bcrypt.compare(req.body.password, user.password, function(err, result) {
-                if (err) {
-                    return res.status(401).send({message: "Email and password are incorrect"})
-                }
                 if (result) {
                     const token = jwt.sign({
                         email: user.email
@@ -51,11 +45,13 @@ const signin = async (req, res) => {
                         token: token
                     })
                 }
-                return res.status(401).json({message: "Email and password are incorrect"})
+                else{
+                    return res.status(401).send({message: "Email and password are incorrect"})
+                }
             });
         })
         .catch( error => {
-            res.status(401).send({message: "Email and password are incorrect"}) 
+            res.status(401).send({error: error.message}) 
         });
 }
 

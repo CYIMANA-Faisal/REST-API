@@ -1,5 +1,6 @@
 
 const Article = require('../models/article');
+const Comment = require('../models/comment')
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 const fs = require('fs')
@@ -8,8 +9,9 @@ const fs = require('fs')
 
 // GetArticles the articles
 const getArticles = async (req, res) => {
-    const articles = await Article.find({});
+    
     try{
+        const articles = await Article.find({});
         res.status(200).json(articles);
     }
     catch(err){
@@ -20,8 +22,10 @@ const getArticles = async (req, res) => {
 // Get a particular article function
 const getArticle = async (req, res) => {
     const article = await Article.findOne({_id:req.params.id});
+    const comment = await Comment.find({commentID: req.params.id})
     try {
-        res.status(200).json(article);
+         
+        res.status(200).json({article: article, comment: comment});
     } catch (err) {
         res.status(500).json({error:err.message});
     }
@@ -35,11 +39,11 @@ const postArticle = async function (req, res) {
             req.body.imageURL = image.url
             const article = await Article.create(req.body);
             fs.unlinkSync(req.file.path)
-            res.status(200).json({message: "Article creatred successfully"});
+            res.status(200).json({message: "Article creatred successfully", articleID: article._id });
         });
           
     } catch (err) {
-        res.status(500).json({error:err.message});
+        res.status(400).json({error:err.message});
     }
 };
 
@@ -47,10 +51,9 @@ const postArticle = async function (req, res) {
 const updateArticle = async (req, res) => {
     try {
         await Article.findByIdAndUpdate(req.params.id, req.body)
-        await Article.save()
         res.status(200).json({message:'The article was updated successfully'})
     } catch (err) {
-        res.status(500).json({error:err.message});
+        res.status(400).json({error:err.message});
     }
 };
 
@@ -61,7 +64,7 @@ const deleteArticle = async (req, res) => {
         res.status(200).json({message:"Article deleted successfully."});
     }
     catch (err) {
-        res.status(500).json({error:err.message});
+        res.status(400).json({error:err.message});
     }
 };
 

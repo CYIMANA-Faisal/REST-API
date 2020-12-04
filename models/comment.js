@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    commentID:{
+    articleID:{
         type: String,
         required: [true, 'the comment must be referenced to the article']
     },
     name:{
         type: String,
-        require: [true, 'the name field is required']
+        required: [true, 'the name field is required']
     },
     comment:{
         type: String,

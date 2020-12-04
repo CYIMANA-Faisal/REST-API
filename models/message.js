@@ -5,19 +5,19 @@ const messageSchema = new Schema({
 
     name: {
         type:String,
-        require:true
+        required:[true, 'Field name is required']
     },
     subject:{
         type: String,
-        require:true,
+        required:[true, 'Field subject is required'],
     },
     email:{
         type:String,
-        require:true
+        required:[true, 'Field email is required']
     },
     message:{
         type:String,
-        require:true,
+        required:[true, 'Field message is required'],
     }
 
 });

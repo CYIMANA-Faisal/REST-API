@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - "stable"
+
+install: npm install
+
+node_js:
+  - "stable"
+
+services:
+  - mongoose
+  
+script:
+  - npm test
