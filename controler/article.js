@@ -40,7 +40,7 @@ const postArticle = async function (req, res) {
         });
           
     } catch (err) {
-        res.status(500).json({error:err.message});
+        res.status(400).json({error:err.message});
     }
 };
 
@@ -50,7 +50,7 @@ const updateArticle = async (req, res) => {
         await Article.findByIdAndUpdate(req.params.id, req.body)
         res.status(200).json({message:'The article was updated successfully'})
     } catch (err) {
-        res.status(500).json({error:err.message});
+        res.status(400).json({error:err.message});
     }
 };
 
@@ -61,7 +61,7 @@ const deleteArticle = async (req, res) => {
         res.status(200).json({message:"Article deleted successfully."});
     }
     catch (err) {
-        res.status(500).json({error:err.message});
+        res.status(400).json({error:err.message});
     }
 };
 

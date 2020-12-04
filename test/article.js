@@ -13,7 +13,7 @@ chai.use(chaiHttp)
 let user = {username:'CYIMANA-JR', email:'cyimanafaisal@gmail.com', password: '1234pass'}
 let token = ''
 
-describe('# Auth testing block', () => {
+describe('# USER MANAGMENT TESTING BLOCK', () => {
     before(() => {
         // Article.deleteOne({email: user.email}, (err) => {
         //    done();
@@ -81,7 +81,7 @@ describe('# Auth testing block', () => {
     
 })
 
-describe('# Articles Testing Block', () => {
+describe('# ARTICLE TESTING BLOCK', () => {
     let article = new Article({ title: "The Testing is better when is comes to making data integrity sure", content: "J.R.R. Tolkin" });
     let id = ''
     /*
@@ -105,6 +105,22 @@ describe('# Articles Testing Block', () => {
         });
     });
 
+
+    // // dont post article
+    // it('it should not POST an Article ', (done) => {
+    //     chai.request(server)
+    //     .post('/api/articles')
+    //     .set("Authorization", `Bearer ${token}`)
+    //     .set('content-type', 'multipart/form-data')
+    //     .field('content', 'this book might be amazing at the moment')
+    //     .attach('imageURL', fs.readFileSync(`${__dirname}/DSC_0018.JPG`), 'test/DSC_0018.JPG')
+    //     .end((err, res) => {
+    //             res.should.have.status(400);
+    //             res.body.should.be.a('object');
+    //             res.body.should.have.property('error')
+    //         done();
+    //     });
+    // });
     /*
     * Test the /POST aticles route
     */
@@ -163,5 +179,8 @@ describe('# Articles Testing Block', () => {
         done();
         });
     })
-    
+
 })
+
+
+module.exports = token

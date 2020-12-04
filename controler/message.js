@@ -6,18 +6,18 @@ const Message = require('../models/message');
 const createMessage = async (req, res) => {
     try {
         const message = await Message.create(req.body);
-        res.send(message);
+        res.send({sent: "your query is sent", message: message});
     } catch (error) {
-        res.status(500). send(error)
+        res.status(500). send({error: error.message})
     }
 }
 // getting all the messages from the database
 const getMessages = async (req, res) => {
     try {
         const messages = await Message.find({});
-        res.send(messages)
+        res.status(200).json(messages)
     } catch (error) {
-        res.status(500). send(error)
+        res.status(400).json({message:error.message})
     }
 
 }
@@ -27,7 +27,7 @@ const getMessage = async (req, res) => {
         const message = await Message.findById({_id: req.params.id})
         res.send(message)
     } catch (error) {
-        res.status(500). send(error)
+        res.status(400).json({message:error.message})
     }
 
 }
@@ -35,14 +35,10 @@ const getMessage = async (req, res) => {
 
 const deleteMessage = async (req, res) => {
     try {
-        const message = await Message.findByIdAndDelete({_id: req.params.id});
-        if (!message) {
-            res.status(404).send("No message found")
-        }else{
-            res.status(200).send("Message deleted successfully")
-        }
+        await Message.findByIdAndDelete({_id: req.params.id});
+        res.status(200).send("Message deleted successfully")
     } catch (error) {
-        
+        res.status(400).json({message:error.message})
     }
 }
 
