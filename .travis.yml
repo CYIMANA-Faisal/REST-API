@@ -1,16 +1,15 @@
 language: node_js
-install: npm install
-env:
-  - dbConnection
-  - KEY
-  - CLOUDINARY_URL
+
 node_js:
   - "stable"
+
+install: npm install
+
+node_js:
+  - "stable"
+
 services:
-  - mongodb
-cache:
-  npm: true
+  - mongoose
+  
 script:
   - npm test
-after_success:
-  - npm run coverage
