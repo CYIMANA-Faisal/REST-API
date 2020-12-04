@@ -2,6 +2,8 @@ language: node_js
 install: npm install
 env:
   - dbConnection=mongodb+srv://cyimana:Cyfaisal1998@portfolio.pgjtx.mongodb.net/portfoliodb?retryWrites=true&w=majority
+  - KEY=cyimana:Cyfaisal1998
+  - CLOUDINARY_URL=cloudinary://569557385459476:csMHSwIagQZxdpudezg-nuUG3cY@cyimana
 node_js:
   - "stable"
 services:
@@ -10,3 +12,5 @@ cache:
   npm: true
 script:
   - npm test
+after_success:
+  - npm run coverage
