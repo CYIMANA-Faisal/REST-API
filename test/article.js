@@ -18,7 +18,7 @@ describe('# USER MANAGMENT TESTING BLOCK', () => {
         // Article.deleteOne({email: user.email}, (err) => {
         //    done();
         User.deleteOne({"email": user.email}).then(()=>{
-            console.log("user has been deleted")
+
         }).catch((error) =>{
             console.log(error.message)
         })
@@ -106,7 +106,7 @@ describe('# ARTICLE TESTING BLOCK', () => {
     });
 
 
-    // // dont post article
+    // dont post article
     // it('it should not POST an Article ', (done) => {
     //     chai.request(server)
     //     .post('/api/articles')
@@ -115,9 +115,9 @@ describe('# ARTICLE TESTING BLOCK', () => {
     //     .field('content', 'this book might be amazing at the moment')
     //     .attach('imageURL', fs.readFileSync(`${__dirname}/DSC_0018.JPG`), 'test/DSC_0018.JPG')
     //     .end((err, res) => {
-    //             res.should.have.status(400);
-    //             res.body.should.be.a('object');
-    //             res.body.should.have.property('error')
+    //         res.should.have.status(400);
+    //         res.body.should.be.a('object');
+    //         res.body.should.have.property('error')
     //         done();
     //     });
     // });

@@ -1,5 +1,6 @@
 
 const Article = require('../models/article');
+const Comment = require('../models/comment')
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 const fs = require('fs')
@@ -21,8 +22,10 @@ const getArticles = async (req, res) => {
 // Get a particular article function
 const getArticle = async (req, res) => {
     const article = await Article.findOne({_id:req.params.id});
+    const comment = await Comment.find({commentID: req.params.id})
     try {
-        res.status(200).json(article);
+         
+        res.status(200).json({article: article, comment: comment});
     } catch (err) {
         res.status(500).json({error:err.message});
     }
